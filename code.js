@@ -1,4 +1,10 @@
-window.addEventListener("load", function () {
+// ==UserScript==
+// @name     Collaborate enhancer
+// @version  1
+// @grant    none
+// @author   Storm
+// ==/UserScript==
+window.addEventListener("load", (event) => {
   function enhance() {
     //color variables
     const bgcChat = "#36393f";
@@ -78,6 +84,7 @@ window.addEventListener("load", function () {
     changeMain();
   }
   enhance();
+  console.log("Collaborate enhancer loaded");
 
   document.addEventListener("click", (event) => {
     try {
