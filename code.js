@@ -3,8 +3,16 @@
 // @version  1
 // @grant    none
 // @author   Storm
+// @include  https://eu.bbcollab.com/collab/ui/session/join/*
 // ==/UserScript==
+
 window.addEventListener("load", (event) => {
+  let loaded = false;
+  if (!loaded) {
+    console.log("Collaborate enhancer loaded");
+    loaded = true;
+  }
+
   function enhance() {
     //color variables
     const bgcChat = "#36393f";
@@ -48,7 +56,7 @@ window.addEventListener("load", (event) => {
     )[0];
 
     function changeChat() {
-      chat_history__header_ng_scope.style.backgroundColor = bgcMenu;
+      chat_history__header_ng_scope.style.backgroundColor = bgcMenuSecondary;
       chat_history__header_ng_scope.style.color = textColor;
       chat_history__header_ng_scope.style.border = "none";
 
@@ -59,7 +67,7 @@ window.addEventListener("load", (event) => {
       chat_history_container.style.color = textColor;
       chat_history_container.style.border = "none";
 
-      chat_input.style.backgroundColor = bgcMenuSecondary;
+      chat_input.style.backgroundColor = bgcMenu;
       chat_input.style.border = "none";
 
       chat_input_container.style.backgroundColor = bgcChat;
@@ -79,14 +87,36 @@ window.addEventListener("load", (event) => {
       controls_container_ng_scope.style.backgroundColor = bgcMain;
     }
 
-    changeChat();
-    changeBottomMenu();
-    changeMain();
+    try {
+      changeChat();
+    } catch {}
+    try {
+      changeBottomMenu();
+    } catch {}
+    try {
+      changeMain();
+    } catch {}
   }
-  enhance();
-  console.log("Collaborate enhancer loaded");
 
-  document.addEventListener("click", (event) => {
+  //try to execute for the first time
+  let i = 0;
+  let intervalID = setInterval(function () {
+    try {
+      enhance();
+    } catch {}
+    i++;
+    if (i > 10) {
+      window.clearInterval(intervalID);
+      console.log(
+        "Automatic execution timed out, script will still execute on click"
+      );
+    }
+    if (loaded) {
+      window.clearInterval(intervalID);
+    }
+  }, 2000);
+
+  window.addEventListener("click", (event) => {
     try {
       enhance();
     } catch {}
