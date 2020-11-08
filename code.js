@@ -9,7 +9,7 @@
 window.addEventListener("load", (event) => {
   let loaded = false;
   if (!loaded) {
-    console.log("Collaborate enhancer loaded");
+    console.log("Collaborate enhancer loaded (●_●)");
     loaded = true;
   }
 
